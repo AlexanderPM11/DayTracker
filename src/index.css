@@ -1,112 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800;900&family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Syne:wght@700;800&display=swap');
 
+@theme {
+  --color-brand-primary: #e0ff00; /* Neon yellow-green */
+  --color-brand-secondary: #0055ff; /* Tech blue */
+  --color-brand-dark: #000000;
+  --color-brand-light: #ffffff;
+  --color-brand-gray: #f0f0f0;
+  
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+/* Base Brutalist Reset */
 :root {
-  --bg-primary: #050505;
-  --bg-secondary: #0f1115;
-  --glass-bg: rgba(255, 255, 255, 0.02);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --accent-primary: #00ffcc; /* Electric Cyan */
-  --accent-secondary: #7000ff; /* Vivid Violet */
-  --text-primary: #ffffff;
-  --text-secondary: #888888;
-  --success: #00ff88;
-  --danger: #ff0055;
-  
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Outfit', sans-serif;
-  
-  --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --bg-color: #f0f0f0;
+  --text-color: #000000;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
+  font-family: 'IBM Plex Mono', monospace;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Background Texture & Depth */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(0, 255, 204, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.05) 0%, transparent 40%),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3欲%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.4;
-  pointer-events: none;
-  z-index: -1;
+/* Custom Selection */
+::selection {
+  background: #e0ff00;
+  color: #000;
 }
 
-h1, h2, h3 {
-  font-family: var(--font-display);
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-}
-
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  transition: var(--transition-smooth);
-}
-
-.glass:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.text-gradient {
-  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: inherit;
-  transition: var(--transition-smooth);
-}
-
-/* Animations */
-@keyframes reveal {
-  from { opacity: 0; transform: translateY(20px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.animate-reveal {
-  opacity: 0;
-  animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 12px;
+  border-left: 2px solid black;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: white;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
-  border-radius: 0;
+  background: black;
+  border: 2px solid white;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-primary);
+  background: #0055ff;
+}
+
+/* Utilities */
+.brutalist-shadow {
+  box-shadow: 4px 4px 0px #000;
+}
+
+.brutalist-button {
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.brutalist-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000 !important;
 }
