@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  streak-core:
+    image: alexpm11/streak_core:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: streak-core
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
