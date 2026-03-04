@@ -66,12 +66,6 @@ export const useChallengeTabs = () => {
       day.id === id ? { ...day, completed: !day.completed } : day
     ));
   };
-  
-  const editDayContent = (id, newContent) => {
-    updateActiveTabDays(days.map(day => 
-      day.id === id ? { ...day, content: newContent } : day
-    ));
-  };
 
   const resetAll = (onConfirmReq) => {
     onConfirmReq(
@@ -153,7 +147,6 @@ export const useChallengeTabs = () => {
     generateDays, 
     deleteDay, 
     toggleComplete, 
-    editDayContent,
     resetAll,
     addTab,
     switchTab,

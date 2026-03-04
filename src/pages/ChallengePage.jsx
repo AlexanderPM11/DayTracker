@@ -107,7 +107,6 @@ export const ChallengePage = () => {
             days={days} 
             onToggle={toggleComplete} 
             onDelete={deleteDay} 
-            onEdit={editDayContent}
             onGenerate={generateDays}
           />
         </main>
