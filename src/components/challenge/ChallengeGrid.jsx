@@ -18,13 +18,24 @@ export const ChallengeGrid = ({
     setIsGenerating(false);
   };
 
+  const completedCount = days.filter(d => d.completed).length;
+  const pendingCount = days.length - completedCount;
+
   return (
     <div className="w-full relative z-10 my-12">
       {/* Action Bar */}
-      <div className="flex justify-between items-end mb-8 border-b-4 border-black pb-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8 border-b-4 border-black pb-4">
         <div>
           <h2 className="font-display font-black text-3xl uppercase tracking-tighter">Matriz de Días</h2>
-          <p className="font-mono text-xs font-bold bg-black text-white inline-block px-2 py-1 mt-1">Nodos Totales: {days.length}</p>
+          <div className="flex flex-wrap gap-2 mt-2">
+            <p className="font-mono text-xs font-bold bg-black text-white inline-block px-2 py-1">Nodos Totales: {days.length}</p>
+            {days.length > 0 && (
+              <>
+                <p className="font-mono text-xs font-bold bg-brand-primary text-black border-2 border-black inline-block px-2 py-1">Completados: {completedCount}</p>
+                <p className="font-mono text-xs font-bold bg-white text-black border-2 border-black inline-block px-2 py-1">Pendientes: {pendingCount}</p>
+              </>
+            )}
+          </div>
         </div>
         <button 
           onClick={() => setIsGenerating(!isGenerating)}
