@@ -47,12 +47,12 @@ export const useChallengeTabs = () => {
     updateActiveTabDays([...days, newDay]);
   };
 
-  const generateDays = (count) => {
+  const generateDays = (count, completedCount = 0) => {
     const newDays = Array.from({ length: count }, (_, i) => ({
       id: Date.now() + i,
       label: `DÍA ${String(i + 1).padStart(3, '0')}`,
       content: '',
-      completed: false
+      completed: i < completedCount
     }));
     updateActiveTabDays(newDays);
   };

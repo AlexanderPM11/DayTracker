@@ -11,9 +11,10 @@ export const ChallengeGrid = ({
 }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [genCount, setGenCount] = useState(30);
+  const [completedGenCount, setCompletedGenCount] = useState(0);
 
-  const handleGenerate = (count) => {
-    onGenerate(count);
+  const handleGenerate = (count, completed = 0) => {
+    onGenerate(count, completed);
     setIsGenerating(false);
   };
 
@@ -53,29 +54,53 @@ export const ChallengeGrid = ({
                  Definir Parámetros de Secuencia
                </h3>
                
-               <div className="flex flex-wrap items-center gap-4 relative z-10">
-                 {[30, 100, 365].map(n => (
-                   <button 
-                     key={n}
-                     onClick={() => handleGenerate(n)}
-                     className="px-5 py-2 border-2 border-black font-mono font-bold hover:bg-black hover:text-white transition-colors uppercase text-sm"
-                   >
-                     {n} Unidades
-                   </button>
-                 ))}
+               <div className="flex flex-col gap-6 relative z-10">
+                 {/* Quick Options */}
+                 <div className="flex flex-wrap items-center gap-3">
+                   <span className="font-mono text-xs font-bold uppercase tracking-wider opacity-60 w-full sm:w-auto">Por defecto:</span>
+                   {[30, 100, 365].map(n => (
+                     <button 
+                       key={n}
+                       onClick={() => handleGenerate(n, 0)}
+                       className="px-5 py-2 border-2 border-black font-mono font-bold hover:bg-black hover:text-white transition-colors uppercase text-sm"
+                     >
+                       {n} Unidades
+                     </button>
+                   ))}
+                 </div>
                  
-                 <span className="font-display font-black text-xl mx-2">O</span>
-                 
-                 <div className="flex items-stretch border-2 border-black bg-white">
-                   <input 
-                     type="number" 
-                     value={genCount}
-                     onChange={(e) => setGenCount(parseInt(e.target.value) || 0)}
-                     className="w-20 px-3 py-2 font-mono text-lg font-bold border-r-2 border-black outline-none"
-                   />
+                 {/* Custom Generation Form */}
+                 <div className="bg-gray-50 border-2 border-black p-4 flex flex-col md:flex-row items-start md:items-end gap-4">
+                   <div className="flex flex-col gap-2 flex-1 w-full md:w-auto">
+                     <label className="font-mono text-xs font-bold uppercase tracking-wider">Total a Generar</label>
+                     <div className="flex items-stretch border-2 border-black bg-white">
+                       <input 
+                         type="number" 
+                         min="1"
+                         value={genCount}
+                         onChange={(e) => setGenCount(parseInt(e.target.value) || 0)}
+                         className="w-full px-3 py-2 font-mono text-lg font-bold outline-none"
+                       />
+                     </div>
+                   </div>
+
+                   <div className="flex flex-col gap-2 flex-1 w-full md:w-auto">
+                     <label className="font-mono text-xs font-bold uppercase tracking-wider">De esos, Iniciar Completados</label>
+                     <div className="flex items-stretch border-2 border-black bg-white">
+                       <input 
+                         type="number" 
+                         min="0"
+                         max={genCount}
+                         value={completedGenCount}
+                         onChange={(e) => setCompletedGenCount(Math.min(genCount, parseInt(e.target.value) || 0))}
+                         className="w-full px-3 py-2 font-mono text-lg font-bold outline-none"
+                       />
+                     </div>
+                   </div>
+                   
                    <button 
-                     onClick={() => handleGenerate(genCount)}
-                     className="px-6 bg-black text-white font-display font-black uppercase hover:bg-[#e0ff00] hover:text-black transition-colors text-sm"
+                     onClick={() => handleGenerate(genCount, completedGenCount)}
+                     className="w-full md:w-auto px-8 h-[44px] shrink-0 bg-black text-white font-display font-black uppercase hover:bg-[#e0ff00] hover:text-black transition-colors text-sm"
                    >
                      Ejecutar
                    </button>
